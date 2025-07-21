@@ -1,0 +1,50 @@
+{% extends 'home.html' %}
+
+{% block content %}
+
+    <section class="contact-section section-padding" id="section_6">
+        <center>
+            {% if mypath %}
+            <div>
+                <img style="margin-top: 50px;" src="/{{mypath}}" height="100px" width="150px">
+                <h5 style="margin-top: 20px;"><b>Result: </b>{{ prediction }}</h5>
+            </div>
+        {% endif %}
+        </center>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-8 col-12 mx-auto">
+
+                    <nav class="d-flex justify-content-center">
+                        <div class="nav nav-tabs align-items-baseline justify-content-center" id="nav-tab" role="tablist">
+                            <button class="nav-link active" id="nav-ContactForm-tab" data-bs-toggle="tab" data-bs-target="#nav-ContactForm" type="button" role="tab" aria-controls="nav-ContactForm" aria-selected="false">
+                                <h5>Upload File</h5>
+                            </button>
+                        </div>
+                    </nav>
+
+                    <div class="tab-content shadow-lg mt-5" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-ContactForm" role="tabpanel" aria-labelledby="nav-ContactForm-tab">
+                            <form class="custom-form contact-form mb-5 mb-lg-0" action="{{url_for('upload')}}" method="post" role="form" enctype="multipart/form-data">
+                                <div class="contact-form-body">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-12">
+                                            <input style="width: 400px; margin-left: 120px;" type="file" name="file" accept="image/*" class="btn btn-primary" required>
+                                        </div>
+                                    </div><br>
+
+                                    <div class="col-lg-4 col-md-10 col-8 mx-auto">
+                                        <button type="submit" class="form-control">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

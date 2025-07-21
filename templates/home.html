@@ -1,0 +1,283 @@
+<script type="text/javascript">
+    var gk_isXlsx = false;
+    var gk_xlsxFileLookup = {};
+    var gk_fileData = {};
+    function filledCell(cell) {
+      return cell !== '' && cell != null;
+    }
+    function loadFileData(filename) {
+    if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+        try {
+            var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+            var firstSheetName = workbook.SheetNames[0];
+            var worksheet = workbook.Sheets[firstSheetName];
+
+            // Convert sheet to JSON to filter blank rows
+            var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+            // Filter out blank rows (rows where all cells are empty, null, or undefined)
+            var filteredData = jsonData.filter(row => row.some(filledCell));
+
+            // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+            var headerRowIndex = filteredData.findIndex((row, index) =>
+              row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+            );
+            // Fallback
+            if (headerRowIndex === -1 || headerRowIndex > 25) {
+              headerRowIndex = 0;
+            }
+
+            // Convert filtered JSON back to CSV
+            var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+            csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+            return csv;
+        } catch (e) {
+            console.error(e);
+            return "";
+        }
+    }
+    return gk_fileData[filename] || "";
+    }
+    </script><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fake Indian Currency</title>
+<style>
+    body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        background: linear-gradient(135deg, #0d1117 0%, #1a2238 100%);
+        color: #c9d1d9;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+    }
+    header {
+        width: 100%;
+        background-color: #161b22;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+    .logo {
+        height: 30px;
+        transition: transform 0.3s ease;
+        opacity: 0;
+        animation: fadeIn 1s ease forwards;
+    }
+    .logo:hover {
+        transform: scale(1.1);
+    }
+    nav a {
+        color: #c9d1d9;
+        margin: 0 15px;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    nav a:hover {
+        color: #58a6ff;
+    }
+    .search-sign {
+        display: flex;
+        align-items: center;
+    }
+    .search-sign input {
+        padding: 5px;
+        margin-right: 10px;
+        border-radius: 5px;
+        border: 1px solid #30363d;
+        background: #21262d;
+        color: #c9d1d9;
+    }
+    .search-sign button {
+        padding: 5px 10px;
+        background-color: #238636;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+    }
+    .search-sign button:hover {
+        transform: translateY(-2px);
+    }
+    .main-content {
+        text-align: center;
+        padding: 50px 20px;
+        color: white;
+        background-image: url('https://images.unsplash.com/photo-1516321318423-ffd5a1a333f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        position: relative;
+    }
+    .main-content::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 1;
+    }
+    .main-content > * {
+        position: relative;
+        z-index: 2;
+    }
+    h1 {
+        font-size: 3em;
+        margin-bottom: 10px;
+        opacity: 0;
+        animation: fadeIn 1s ease 0.5s forwards;
+    }
+    p {
+        font-size: 1.2em;
+        margin-bottom: 20px;
+        opacity: 0;
+        animation: fadeIn 1s ease 1s forwards;
+    }
+    .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+    .buttons input {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #30363d;
+        background: #21262d;
+        color: #c9d1d9;
+        opacity: 0;
+        transform: translateX(-50px);
+        animation: slideIn 0.8s ease 1.5s forwards;
+    }
+    .buttons button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+        opacity: 0;
+        transform: translateX(50px);
+        animation: slideIn 0.8s ease 1.5s forwards;
+    }
+    .buttons .signup {
+        background-color: #238636;
+        color: white;
+    }
+    .buttons .signup:hover {
+        transform: translateY(-2px);
+    }
+    .buttons .copilot {
+        background-color: #3b82f6;
+        color: white;
+    }
+    .buttons .copilot:hover {
+        transform: translateY(-2px);
+    }
+    .illustration {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+    .illustration img {
+        width: 200px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 10px;
+        animation: bounce 2s infinite ease-in-out;
+    }
+    .notification {
+        background-color: #0d1117;
+        color: #58a6ff;
+        padding: 5px 10px;
+        text-align: center;
+        width: 100%;
+        position: sticky;
+        top: 60px;
+        z-index: 9;
+        opacity: 0;
+        animation: fadeIn 1s ease forwards;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    @keyframes slideIn {
+        from { opacity: 0; transform: translateX(var(--start)); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+    }
+</style>
+</head>
+<body>
+<header>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQMAAADCCAMAAAB6zFdcAAAAclBMVEX///8ZGRkAAACnp6cWFhbd3d3u7u4jIyMKCgpqamq4uLgaGhoUFBQQEBDX19fh4eH19fWhoaEtLS04ODhhYWGRkZHn5+fHx8eXl5dubm5VVVU7OztHR0fAwMDz8/OwsLCGhoZ4eHhNTU3Q0NBCQkIpKSnVc46eAAADW0lEQVR4nO3c3XKqMBSGYYyAWIgioFZt/a33f4ulM44kVNvCsPeaSd7nUD1YZvAzWQkEAQAAAAAAAAAAAAAAAAAAAAAAAAC4Zb4Y97K4SFc+mLxQ/ZS5dOmDmap01EMWrqQrH8xS9RmB0UitpSsfzLrvELxKVz6Yuc76DcFGuvLhlCpp0Tp88J0z+0OqcCcPx9W0pdruMqWS9hDsNvan5tKV/2PxbFwpZf1GwonrX/qB/aKwwlJP3Ln4/y5fWpeCOkoXJOKSanMQZtL1iIjMQUgq6XJkzFTzPxkqD2Pxy9gIRrWUrkbIW/Nr0G/SxQgxlhOhcmeh+E0ePTcr7omQqvHcftOhMZn+1CgxJ0pJ6z13QnLRb/UcqnfpygdDAyGI+zYQttKVDyY/t5fJf6PLvXTpgzmp8BfmN7+/mKlIuvLBHNTkN2bT+f6ifpGufDjxr/LzfaYYZqv7y9KF/1/FPTPDVLoWIXnTYs0K6WKEzJrpg3bn77AbY/XsaTstCLbN4lkdpIuREZlNFHfmBJ1smjHIHNpb6uJiXgYn6WpE7EujsazcOXbSRWUcz9CldDUS8spsLSiHlgh/dinNIUg8nCBFJ2XutHm3w5KvDlu7m+r8/Ch+MRwWx2n57RCG83tMs1bLPGl3GEOH+qdPGEvDhycVEw/+EmY/dte1qhzaT3rm6Rik9a9AfbizlfKDJ2MQaqWuJ09On9hjkGbJbV/xvFx7s1KMrDHIdtXmtDysPWsWHM1BcGkHqYuzeXw/OUuXIyKeWKfwjtL1iDAPoNWDMJauR4R5AC31tWV0snLx6tmG4o11EMHHjkltNeGIttVHd79p8oSZi/VqyZOVQgu5GAT5m5mLDp086yIekYvB2p4vut9De4RcDKzN9joXCz/X0eRiPV+0b+lzfXPlMfsgu6e5aN3QkCWeNRZvzFxM9dXLXMw/rFz08+ZOcrH2bueiF9tt35CLwdcNf+Z88erNppsp31lbDlPpekTME3KxzkVrHe1nLr5auajJxVHi0CPiOiAXa3M7Epw/ofcQ88Wg9WTBLPPs0PINuRgE+8LKRYceGdhBZM8X/czFFzsX3XmEaBdL89Rapv3Mxcp+pLCX/cV44eijpQEAAAAAAAAAAAAAAAAAAAAAAACg8QlUNyZVfc3+kgAAAABJRU5ErkJggg==" alt="GitHub Logo" class="logo">
+    <nav>
+        <a href="#">Upload</a>
+        <a href="/history">History</a>
+        <a href="/">Logout</a>
+    </nav>
+
+</header>
+<div class="main-content">
+    <h1>Fake Indian Currency Detection </h1>
+    <p>Give an image From your Gallery We will read it as fake or not</p>
+
+    <section class="contact-section section-padding" id="section_6">
+        <center>
+            {% if mypath %}
+            <div>
+                <img style="margin-top: 50px;" src="/{{mypath}}" height="100px" width="150px">
+                <h5 style="margin-top: 20px;"><b>Result: </b>{{ prediction }}</h5>
+            </div>
+        {% endif %}
+        </center>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-8 col-12 mx-auto">
+
+                    <nav class="d-flex justify-content-center">
+                        <div class="nav nav-tabs align-items-baseline justify-content-center" id="nav-tab" role="tablist">
+                        </div>
+                    </nav>
+
+                    <div class="tab-content shadow-lg mt-5" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-ContactForm" role="tabpanel" aria-labelledby="nav-ContactForm-tab">
+                            <form class="custom-form contact-form mb-5 mb-lg-0" action="{{url_for('upload')}}" method="post" role="form" enctype="multipart/form-data">
+                                <div class="contact-form-body">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-12">
+                                            <input style="width: 400px; margin-left: 120px;" type="file" name="file" accept="image/*" class="btn btn-primary" required>
+                                        </div>
+                                    </div><br>
+
+                                    <div class="col-lg-4 col-md-10 col-8 mx-auto">
+                                        <button type="submit" class="form-control">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>
